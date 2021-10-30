@@ -5,23 +5,29 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    float speed = 10f;
+    float speed = 9f;
     float speedDiag;
     //float acceleration;
     //float velocityCap;
 
-
+    float initialy;
 
     // Start is called before the first frame update
     void Start()
     {
         speedDiag = speed * Mathf.Sin(Mathf.PI / 4);
+        initialy = transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+         
+
+    }
+
+    void FixedUpdate() {
+
         //controls 
         bool up = Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W);
         bool down = Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
@@ -51,8 +57,10 @@ public class PlayerMovement : MonoBehaviour
             transform.Translate(Vector3.right * effectivespeed * Time.deltaTime);
         }
 
-
-        
+        //never let the player leave the ground 
+        if(transform.position.y != initialy) {
+            transform.position = new Vector3(transform.position.x, initialy, transform.position.z);
+        }
 
     }
 }

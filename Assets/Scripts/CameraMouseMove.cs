@@ -17,6 +17,7 @@ public class CameraMouseMove : MonoBehaviour
     public Transform cameraTransform;
     public Transform playerTransform;
 
+    float xrotation = 0f;
     float yrotation = 0f;
 
     // Start is called before the first frame update
@@ -29,8 +30,17 @@ public class CameraMouseMove : MonoBehaviour
     void Update()
     {
 
-        //rotate whole player left and right 
-        playerTransform.Rotate(0, Input.GetAxis("Mouse X") * sensitivity, 0);
+        //rotate whole player left and right
+
+        //this also works, but might as well do everyting at once with the below 
+        //playerTransform.Rotate(0, Input.GetAxis("Mouse X") * sensitivity, 0);
+
+        xrotation += Input.GetAxis("Mouse X") * sensitivity;
+        xrotation = Mathf.Repeat(xrotation, 360);
+
+        //never let the player rotate on any other axis 
+        playerTransform.rotation = Quaternion.Euler(0, xrotation, 0);
+        
         
         //only rotate the camera up and down 
         //but, cap it up and down 
