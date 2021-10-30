@@ -62,5 +62,8 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector3(transform.position.x, initialy, transform.position.z);
         }
 
+        //dont let the player float either 
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+
     }
 }

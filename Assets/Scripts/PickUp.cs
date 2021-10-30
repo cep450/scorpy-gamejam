@@ -5,6 +5,9 @@ using UnityEngine;
 public class PickUp : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public SpriteRenderer myE;
+
     void Start()
     {
         
@@ -26,5 +29,20 @@ public class PickUp : MonoBehaviour
         //set the camera as my parent 
         //if the player presses E again when i'm parented, unparent myself 
 
-        
+    void OnTriggerEnter() {
+        //if was player "raycast"
+        myE.enabled = true;
+    }
+
+    void onTriggerStay() {
+        if(Input.GetKey(KeyCode.E)) {
+            //toggle being parented to player 
+
+        }
+    }
+
+    void OnTriggerExit() {
+        //if was player "raycast" 
+        myE.enabled = false;
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PickUpEr : MonoBehaviour
 {
 
-    float raycastDistance = 2f;
+    float raycastDistance = 2.5f;
 
     public bool holdingSomething = false;
 
