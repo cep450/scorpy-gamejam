@@ -14,5 +14,17 @@ public class PickUp : MonoBehaviour
     void Update()
     {
         
+        
+
     }
+
+
+    //raycast hit me! 
+        //at least, check it was the PickUpEr who hit me 
+        //show my "E" 
+        //if the player presses E when i'm showing my E 
+        //set the camera as my parent 
+        //if the player presses E again when i'm parented, unparent myself 
+
+        
 }
