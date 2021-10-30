@@ -12,8 +12,12 @@ public class CameraMouseMove : MonoBehaviour
 
     float sensitivity = 10f;
 
+    float degreescap = 85f;
+
     public Transform cameraTransform;
     public Transform playerTransform;
+
+    float yrotation = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +29,15 @@ public class CameraMouseMove : MonoBehaviour
     void Update()
     {
 
-        Debug.Log("leftright: " + Input.GetAxis("Horizontal"));
-
         //rotate whole player left and right 
-        playerTransform.Rotate(-Input.GetAxis("Horizontal") * sensitivity, 0, 0); 
+        playerTransform.Rotate(0, Input.GetAxis("Mouse X") * sensitivity, 0);
+        
         //only rotate the camera up and down 
-        cameraTransform.Rotate(0, Input.GetAxis("Vertical") * sensitivity, 0);
+        //but, cap it up and down 
+        //https://answers.unity.com/questions/1344322/free-mouse-rotating-camera.html
+        yrotation -= Input.GetAxis("Mouse Y") * sensitivity;
+        yrotation = Mathf.Clamp(yrotation, -degreescap, degreescap);
+        cameraTransform.rotation = Quaternion.Euler(yrotation, cameraTransform.eulerAngles.y, cameraTransform.eulerAngles.z);
         
     }
 }
