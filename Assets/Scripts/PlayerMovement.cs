@@ -12,11 +12,14 @@ public class PlayerMovement : MonoBehaviour
 
     float initialy;
 
+    Rigidbody myrb;
+
     // Start is called before the first frame update
     void Start()
     {
         speedDiag = speed * Mathf.Sin(Mathf.PI / 4);
         initialy = transform.position.y;
+        myrb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -63,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //dont let the player float either 
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        myrb.velocity = Vector3.zero;
 
     }
 }

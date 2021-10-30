@@ -8,15 +8,43 @@ public class PickUp : MonoBehaviour
 
     public SpriteRenderer myE;
 
+    bool parentedToPlayer = false;
+
+    Rigidbody myrb;
+
+    Vector3 pickedUpPos;
+    float rubberBandRate = 10f;
+
     void Start()
     {
-        
+        myrb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+        
+    }
+
+    void FixedUpdate() {
+
+        //when held, velocity should always be 0 
+        if(parentedToPlayer) {
+
+            myrb.velocity = Vector3.zero;
+
+            //try to stay where it was picked up from 
+            //public static Vector3 MoveTowards(Vector3 current, Vector3 target, float maxDistanceDelta);
+            //transform.Translate(Vector3.MoveTowards(transform.position, Vector3.zero, rubberBandRate * Time.deltaTime));
+
+            if(Input.GetKeyDown(KeyCode.E)) {
+                transform.SetParent(null);
+                parentedToPlayer = false;
+                myrb.useGravity = true;
+            }
+
+        }
         
 
     }
@@ -34,11 +62,22 @@ public class PickUp : MonoBehaviour
         myE.enabled = true;
     }
 
-    void onTriggerStay() {
-        if(Input.GetKey(KeyCode.E)) {
+    void OnTriggerStay() {
+        if(Input.GetKeyDown(KeyCode.E)) {
             //toggle being parented to player 
+            //public void SetParent(Transform p);
+            if(!parentedToPlayer) {
+                transform.SetParent(Camera.main.transform);
+                parentedToPlayer = true;
+                myE.enabled = false;
+                myrb.useGravity = false;
+                //pickedUpPos = transform.position;
+                
+            }
 
         }
+
+
     }
 
     void OnTriggerExit() {
